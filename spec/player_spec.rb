@@ -18,7 +18,12 @@ describe Player do
   end
 
   it 'should calculate the turning animation' do
-    @player.turn_to(6).should == [7, 6]
+    Player.send :attr_accessor, :current_animation
+    @player.turn_to(2).should == 1
+    @player.turn_to(6).should == 7
+    @player.current_animation = 6
+    @player.turn_to(0).should == 7
+    @player.turn_to(5).should == 5
   end
 
   describe 'when walking' do
@@ -30,20 +35,32 @@ describe Player do
     end
 
     it 'should change the animation but mantain position, if changes the direction' do
-      pending
       @player.goto 0, 0
+      Player::TURN_DELAY.times { @player.update }
+      @player.x.should == 10
+      @player.y.should == 10
+      @player.current_animation.should == 7
+    end
+
+    it 'should not update the position if it\'s not enough distant' do
+      @player.goto 10, 9
       @player.update
       @player.x.should == 10
       @player.y.should == 10
     end
 
     it 'should update the current position, but not walk more than 5 steps' do
-      pending
       @player.goto 0, 0
+      Player::TURN_DELAY.times { @player.update }
       @player.update
-      @player.update
-      @player.y.should == 2.5
-      @player.x.should == 2.5
+      @player.y.should == 7.5
+      @player.x.should == 7.5
     end
+  end
+
+  it 'should draw the ship' do
+    Player.send :attr_accessor, :animations
+    @player.draw_on(@screen)
+    @screen.should have_a(@player.animations[0]).on(10, 10)
   end
 end
