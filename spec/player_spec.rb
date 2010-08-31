@@ -61,6 +61,13 @@ describe Player do
   it 'should draw the ship' do
     Player.send :attr_accessor, :animations
     @player.draw_on(@screen)
-    @screen.should have_a(@player.animations[0]).on(10, 10)
+    @screen.should have_a(@player.animations[0]).on(-20, -20)
+  end
+
+  it 'should have a collision box' do
+    @player.collision_box.x1.should == -3
+    @player.collision_box.x2.should == 23
+    @player.collision_box.y1.should == -3
+    @player.collision_box.y2.should == 23
   end
 end

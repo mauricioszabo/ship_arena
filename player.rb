@@ -1,6 +1,12 @@
+require "square"
 class Player
   STEP_SIZE = 5
   TURN_DELAY = 3
+  SIZE = 60
+  COMPENSATION = SIZE/2
+  COLLISION_SIZE = 26
+  COLLISION_COMPENSATION = COLLISION_SIZE/2
+
   attr_reader :x, :y
 
   def initialize(file, x=0, y=0)
@@ -8,6 +14,7 @@ class Player
     @current_animation = 0
     @x, @y = x, y
     @turn_time = 0
+    @collision_box = Square.new
   end
 
   def goto(x, y)
@@ -94,6 +101,14 @@ class Player
   end
 
   def draw_on(screen)
-    screen.draw(@animations[@current_animation], @x, @y)
+    screen.draw(@animations[@current_animation], @x - COMPENSATION, @y - COMPENSATION)
+  end
+
+  def collision_box
+    @collision_box.x1 = x - COLLISION_COMPENSATION
+    @collision_box.x2 = x + COLLISION_COMPENSATION
+    @collision_box.y1 = y - COLLISION_COMPENSATION
+    @collision_box.y2 = y + COLLISION_COMPENSATION
+    return @collision_box
   end
 end
