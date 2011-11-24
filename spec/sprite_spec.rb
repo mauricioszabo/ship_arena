@@ -1,4 +1,4 @@
-require "spec/helper"
+require_relative "helper"
 
 describe Sprite do
   before do

@@ -1,6 +1,6 @@
-require "sprite"
-require "energy"
-require "player"
+require_relative "sprite"
+require_relative "energy"
+require_relative "player"
 
 class Scene
   WIDTH = 800

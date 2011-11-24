@@ -1,4 +1,4 @@
-require "screen"
+require_relative "screen"
 
 class Sprite
   DIR = File.expand_path File.join(File.dirname(__FILE__), "images")

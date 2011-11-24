@@ -1,4 +1,4 @@
 require "ar_sdl"
-require "spec/mock_screen"
-require "spec/objects_matcher"
+require_relative "mock_screen"
+require_relative "objects_matcher"
 

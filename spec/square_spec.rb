@@ -1,4 +1,4 @@
-require "spec/helper"
+require_relative "helper"
 
 describe Square do
   it 'should verify if collides with another square' do

@@ -1,7 +1,7 @@
-require "spec/helper"
+require_relative "helper"
 
 describe Energy do
-  it_should_behave_like 'a mocked screen'
+  let(:screen) { MockScreen.new }
   class Energy; attr_reader :tank, :energy; end
 
   before do
@@ -20,10 +20,10 @@ describe Energy do
   end
 
   it 'should draw correctly on the screen' do
-    @energy.draw_on @screen, 0, 0
-    @screen.should have_a(@energy.tank).on(0, 0)
-    @screen.should have(100).objects_like(@energy.energy)
-    @screen.should have_a(@energy.energy).on(4, 3)
-    @screen.should have_a(@energy.energy).on(5, 3)
+    @energy.draw_on screen, 0, 0
+    screen.should have_a(@energy.tank).on(0, 0)
+    screen.should have(100).objects_like(@energy.energy)
+    screen.should have_a(@energy.energy).on(4, 3)
+    screen.should have_a(@energy.energy).on(5, 3)
   end
 end

@@ -1,7 +1,7 @@
 require "rubygems"
 require "sdl"
-require "scene"
-require "screen"
+require_relative "scene"
+require_relative "screen"
 
 class ArSDL
   PAUSE = 20

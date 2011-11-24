@@ -14,9 +14,3 @@ class MockScreen
     objects.select { |o| o.sprite == sprite }
   end
 end
-
-describe 'a mocked screen', :shared => true do
-  before do
-    @screen = MockScreen.new
-  end
-end

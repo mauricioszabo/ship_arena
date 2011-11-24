@@ -1,4 +1,5 @@
-require "square"
+require_relative "square"
+
 class Player
   STEP_SIZE = 5
   TURN_DELAY = 3
