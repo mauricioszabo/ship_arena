@@ -1,10 +1,10 @@
-watch('(.*).rb') { |x| run_spec "spec/#{x[1]}_spec.rb" }
+watch('lib/(.*).rb') { |x| run_spec "spec/#{x[1]}_spec.rb" }
 watch('spec/.*_spec.rb') { |x| run_spec x[0] }
 
 def run_spec(spec)
   puts "Running spec: #{spec}"
-  if system "spec #{spec}"
-    send_notification :all unless system "spec spec/"
+  if system "rspec #{spec}"
+    send_notification :all unless system "rspec spec/"
   else
     send_notification
   end
