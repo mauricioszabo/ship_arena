@@ -17,11 +17,11 @@ describe Player do
 
   it 'should calculate the turning animation' do
     Player.send :attr_accessor, :current_animation
-    player.turn_to(2).should == 1
-    player.turn_to(6).should == 7
-    player.current_animation = 6
-    player.turn_to(0).should == 7
-    player.turn_to(5).should == 5
+    player.turn_to(Player::UPPER_RIGHT).should == Player::UPPER
+    player.turn_to(Player::LOWER_LEFT).should == Player::LEFT
+    player.current_animation = Player::LOWER_LEFT
+    player.turn_to(Player::UPPER).should == Player::LEFT
+    player.turn_to(Player::LOWER).should == Player::LOWER
   end
 
   describe 'when walking' do
