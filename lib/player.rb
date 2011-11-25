@@ -8,6 +8,15 @@ class Player
   COLLISION_SIZE = 26
   COLLISION_COMPENSATION = COLLISION_SIZE/2
 
+  UPPER = 1
+  UPPER_RIGHT = 2
+  RIGHT = 3
+  LOWER_RIGHT = 4
+  LOWER = 5
+  LOWER_LEFT = 6
+  LEFT = 7
+  UPPER_LEFT = 8
+
   attr_reader :x, :y
 
   def initialize(file, x=0, y=0)
@@ -24,6 +33,42 @@ class Player
 
   def update
     update_steps
+  end
+
+  def update_steps
+    distance_x = @destination_x.to_i - @x
+    distance_y = @destination_y.to_i - @y
+    total_distance = (distance_x.abs + distance_y.abs).to_f
+    return if total_distance <= STEP_SIZE
+
+    new_animation = direction_to(@destination_x, @destination_y)
+    if new_animation == @current_animation
+      multiplier_x = distance_x / total_distance
+      multiplier_y = distance_y / total_distance
+      @x += STEP_SIZE * multiplier_x
+      @y += STEP_SIZE * multiplier_y
+    else
+      @turn_time += 1
+      @turn_time = 0 if @turn_time == TURN_DELAY
+      return if @turn_time != 0
+      @current_animation = turn_to(new_animation)
+    end
+  end
+  private :update_steps
+
+  def turn_to(direction)
+    if direction > @current_animation
+      value = +1
+      distance = direction - @current_animation
+    else
+      value = -1
+      distance = @current_animation - direction
+    end
+    if distance < 5
+      @current_animation + value
+    else
+      (@current_animation - value) % 8
+    end
   end
 
   def direction_to(x, y)
@@ -64,42 +109,6 @@ class Player
     end
   end
   private :diagonal
-
-  def update_steps
-    distance_x = @destination_x.to_i - @x
-    distance_y = @destination_y.to_i - @y
-    total_distance = (distance_x.abs + distance_y.abs).to_f
-    return if total_distance <= STEP_SIZE
-
-    new_animation = direction_to(@destination_x, @destination_y)
-    if new_animation == @current_animation
-      multiplier_x = distance_x / total_distance
-      multiplier_y = distance_y / total_distance
-      @x += STEP_SIZE * multiplier_x
-      @y += STEP_SIZE * multiplier_y
-    else
-      @turn_time += 1
-      @turn_time = 0 if @turn_time == TURN_DELAY
-      return if @turn_time != 0
-      @current_animation = turn_to(new_animation)
-    end
-  end
-  private :update_steps
-
-  def turn_to(direction)
-    if direction > @current_animation
-      value = +1
-      distance = direction - @current_animation
-    else
-      value = -1
-      distance = @current_animation - direction
-    end
-    if distance < 5
-      @current_animation + value
-    else
-      (@current_animation - value) % 8
-    end
-  end
 
   def draw_on(screen)
     screen.draw(@animations[@current_animation], @x - COMPENSATION, @y - COMPENSATION)
