@@ -27,10 +27,6 @@ class Scene
     @p1_energy.draw_on @screen, 20, 0
     @p2_energy.draw_on @screen, WIDTH-130, 0
     @p1.draw_on @screen
-  end
-
-  private
-  def dir_for(file)
-    File.join(DIR, file)
+    @p2.draw_on @screen
   end
 end
