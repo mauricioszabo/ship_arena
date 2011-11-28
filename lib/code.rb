@@ -6,16 +6,16 @@ class Code
     block = nil
     define_method(:each_frame) { |&b| block = b }
 
-    define_method :register_to do |player|
+    define_method :register_to do |scene, player|
       code = new
-      define_methods(player)
+      define_methods(scene, player)
       define_method(:run) { instance_exec &block }
       eigen = class << code.class; self; end
       eigen.send :undef_method, :register_to
       return code
     end
 
-    def define_methods(player)
+    def define_methods(scene, player)
       define_method(:turn_to) do |d| 
         dir = case d
           when :upper, :up then Player::UPPER

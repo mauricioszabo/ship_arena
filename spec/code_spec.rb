@@ -2,8 +2,10 @@ require_relative 'helper'
 
 describe Code do
   let(:player) { mock(Player) }
+  let(:screen) { MockScreen.new }
+  let(:scene) { Scene.new(screen) }
 
-  context "turning the ship" do
+  context "on movement" do
     it 'should ask for ship to turn' do
       converts = {
         :upper => Player::UPPER,
@@ -29,14 +31,18 @@ describe Code do
         run { turn_to :sky }
       }.to raise_error(ArgumentError)
     end
-  end
 
-  context "on moving" do
     it 'should move a player to a given direction' do
       player.should_receive(:goto).with(10, 20)
       run {
         goto 10, 20
       }
+    end
+  end
+
+  context "on positioning" do
+    it 'should show where is the other ship' do
+      pending
     end
   end
 
@@ -67,6 +73,16 @@ describe Code do
         run { ObjectSpace.each_object { |x| x } }
       }.to raise_error
     end
+
+    it 'should not be able to access "player" or "scene"' do
+      expect {
+        run { player }
+      }.to raise_error(NameError)
+
+      expect {
+        run { scene }
+      }.to raise_error(NameError)
+    end
   end
 
   def run(&block)
@@ -78,6 +94,6 @@ describe Code do
       each_frame &block
     end
     #FIXME: Cannot stay on Code interface
-    code.register_to player
+    code.register_to scene, player
   end
 end

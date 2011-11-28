@@ -29,10 +29,10 @@ class Scene
   def register_to(code, player)
     if player == :p1
       @code1 = code
-      @code1.register_to @p1
+      @code1.register_to self, @p1
     else
       @code2 = code
-      @code2.register_to @p2
+      @code2.register_to self, @p2
     end
   end
 end
