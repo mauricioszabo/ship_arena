@@ -12,15 +12,11 @@ class Scene
     @p2_energy = Energy.new
     @p1 = Player.new :p1
     @p2 = Player.new :p2
-    @frame = 0
   end
   
   def update
-    if (@frame += 1) > 40
-      @frame = 0
-      @p1.goto rand(WIDTH), rand(HEIGHT)
-    end
-    @p1.update
+    @code1.run if @code1
+    @code2.run if @code2
   end
 
   def draw
@@ -28,5 +24,15 @@ class Scene
     @p2_energy.draw_on @screen, WIDTH-130, 0
     @p1.draw_on @screen
     @p2.draw_on @screen
+  end
+
+  def register_to(code, player)
+    if player == :p1
+      @code1 = code
+      @code1.register_to @p1
+    else
+      @code2 = code
+      @code2.register_to @p2
+    end
   end
 end

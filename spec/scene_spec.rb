@@ -20,6 +20,14 @@ describe Scene do
     scene.draw
     screen.should have_a(p1.surface)
     screen.should have_a(p2.surface)
-    
+  end
+
+  it 'should update the code' do
+    code = mock("Code")
+    code.stub!(:register_to)
+    code.should_receive(:run).twice
+    scene.register_to code, :p1
+    scene.register_to code, :p2
+    scene.update
   end
 end
