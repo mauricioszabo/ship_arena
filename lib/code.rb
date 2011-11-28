@@ -30,6 +30,10 @@ class Code
         end
         player.turn_to(dir)
       end
+
+      define_method :goto do |x, y|
+        player.goto(x, y)
+      end
     end
     private :define_methods
   end

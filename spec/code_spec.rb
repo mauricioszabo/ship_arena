@@ -31,6 +31,15 @@ describe Code do
     end
   end
 
+  context "on moving" do
+    it 'should move a player to a given direction' do
+      player.should_receive(:goto).with(10, 20)
+      run {
+        goto 10, 20
+      }
+    end
+  end
+
   context "on security" do
     it 'should not register a new player' do
       new_player = mock Player
