@@ -4,6 +4,8 @@ describe Player do
   let(:screen) { MockScreen.new }
   let(:player) { Player.new :p1, 10, 10 }
 
+  Player.send :attr_accessor, :current_animation
+
   it 'should calculate the direction of the walk' do
     player.direction_to(0, 1).should == 7
     player.direction_to(0, 10).should == 6
@@ -16,7 +18,6 @@ describe Player do
   end
 
   it 'should calculate the turning animation' do
-    Player.send :attr_accessor, :current_animation
     player.turn_to(Player::UPPER_RIGHT).should == Player::UPPER
     player.turn_to(Player::LOWER_LEFT).should == Player::LEFT
     player.current_animation = Player::LOWER_LEFT

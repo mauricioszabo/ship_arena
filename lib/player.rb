@@ -17,7 +17,7 @@ class Player
   LEFT = 7
   UPPER_LEFT = 8
 
-  attr_reader :x, :y
+  attr_reader :x, :y, :current_animation
 
   def initialize(file, x=0, y=0)
     @animations = (1..8).collect { |number| Sprite.new "#{file}-#{number}" }
