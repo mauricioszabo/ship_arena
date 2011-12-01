@@ -41,8 +41,27 @@ describe Code do
   end
 
   context "on positioning" do
-    it 'should show where is the other ship' do
-      pending
+    it 'should show where are the ships' do
+      run {
+        me.x.should == 20
+        me.y.should == 300
+        enemy.x.should == 780
+        enemy.y.should == 300
+      }
+    end
+
+    it 'should show position of mine and other ship' do
+      run {
+        me.direction.should == :upper
+        enemy.direction.should == :upper
+      }
+    end
+
+    it 'should show energy for both ships' do
+      run {
+        me.energy.should == 100
+        enemy.energy.should == 100
+      }
     end
   end
 
@@ -93,7 +112,11 @@ describe Code do
     code = Class.new(Code) do
       each_frame &block
     end
-    #FIXME: Cannot stay on Code interface
-    code.register_to scene, player
+    player.stub!(:x).and_return(20)
+    player.stub!(:y).and_return(300)
+    player.stub!(:current_animation).and_return(0)
+    scene.instance_variable_set :@p1, player
+    scene.register_to code, :p1
+    scene.instance_variable_get :@code1
   end
 end

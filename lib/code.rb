@@ -1,6 +1,24 @@
 Object.send :remove_const, :ObjectSpace
 class Code
-  attr_accessor :block
+  ShipData = Struct.new(:x, :y, :energy, :direction)
+  
+  me = enemy = nil
+
+  define_method(:me=) { |o| me = o }
+  define_method(:enemy=) { |o| enemy = o }
+  define_method(:me) { me }
+  define_method(:enemy) { enemy }
+
+  DIRECTION = {
+    Player::UPPER => :upper,
+    Player::UPPER_RIGHT => :upper_right,
+    Player::RIGHT => :right,
+    Player::LOWER_RIGHT => :lower_right,
+    Player::LOWER => :lower,
+    Player::LOWER_LEFT => :lower_left,
+    Player::LEFT => :left,
+    Player::UPPER_LEFT => :upper_left,
+  }
 
   class << self
     block = nil
