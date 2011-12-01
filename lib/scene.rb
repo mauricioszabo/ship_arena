@@ -10,8 +10,8 @@ class Scene
     @screen = screen
     @p1_energy = Energy.new
     @p2_energy = Energy.new
-    @p1 = Player.new :p1
-    @p2 = Player.new :p2
+    @p1 = Player.new :p1, 20, 300
+    @p2 = Player.new :p2, 780, 300
   end
   
   def update
@@ -28,11 +28,32 @@ class Scene
 
   def register_to(code, player)
     if player == :p1
-      @code1 = code
-      @code1.register_to self, @p1
+      @code1 = code.register_to self, @p1
     else
-      @code2 = code
-      @code2.register_to self, @p2
+      @code2 = code.register_to self, @p2
     end
+    update_codes
   end
+
+  def update_codes
+    #[@code1, @code2].compact.each do |code|
+    #end
+    update_player_info @code1, @p1, @p2, @p1_energy, @p2_energy if @code1
+    update_player_info @code2, @p2, @p1, @p2_energy, @p1_energy if @code2
+  end
+  private :update_codes
+  
+  def update_player_info(code, me, enemy, my_energy, other_energy)
+    code.me ||= Code::ShipData.new
+    code.enemy ||= Code::ShipData.new
+    code.me.x = me.x
+    code.me.y = me.y
+    code.me.energy = my_energy.level
+    code.me.direction = Code::DIRECTION[me.current_animation + 1]
+    code.enemy.x = enemy.x
+    code.enemy.y = enemy.y
+    code.enemy.energy = other_energy.level
+    code.enemy.direction = Code::DIRECTION[enemy.current_animation + 1]
+  end
+  private :update_player_info
 end
