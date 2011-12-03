@@ -4,7 +4,7 @@ describe Scene do
   let(:scene) { Scene.new(screen) }
   let(:screen) { MockScreen.new }
 
-  class Scene; attr_reader :p1, :p2; end
+  class Scene; attr_accessor :p1, :p2; end
   class Energy; attr_reader :tank, :energy; end
 
   it 'should draw the initial energy tanks' do
@@ -22,7 +22,7 @@ describe Scene do
     screen.should have_a(p2.surface)
   end
 
-  it 'should update the code' do
+  it 'should update the code on register' do
     code1 = mock("Code")
     code1.stub!(:register_to).and_return(code_instance1 = mock("Code Instance").as_null_object)
     code2 = mock("Code")
@@ -31,6 +31,19 @@ describe Scene do
     code_instance2.should_receive(:run)
     scene.register_to code1, :p1
     scene.register_to code2, :p2
+    scene.update
+  end
+
+  it 'should update code\'s ship info on update' do
+    scene.should_receive :update_codes
+    scene.update
+  end
+  
+  it 'should update the player' do
+    scene.p1 = mock("Player 1")
+    scene.p2 = mock("Player 1")
+    scene.p1.should_receive(:update)
+    scene.p2.should_receive(:update)
     scene.update
   end
 end

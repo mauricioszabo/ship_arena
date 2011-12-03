@@ -15,15 +15,11 @@ class Scene
   end
   
   def update
+    update_codes
     @code1.run if @code1
     @code2.run if @code2
-  end
-
-  def draw
-    @p1_energy.draw_on @screen, 20, 0
-    @p2_energy.draw_on @screen, WIDTH-130, 0
-    @p1.draw_on @screen
-    @p2.draw_on @screen
+    @p1.update
+    @p2.update
   end
 
   def register_to(code, player)
@@ -32,7 +28,6 @@ class Scene
     else
       @code2 = code.register_to self, @p2
     end
-    update_codes
   end
 
   def update_codes
@@ -40,18 +35,25 @@ class Scene
     update_player_info @code2, @p2, @p1, @p2_energy, @p1_energy if @code2
   end
   private :update_codes
-  
+
   def update_player_info(code, me, enemy, my_energy, other_energy)
     code.me ||= Code::ShipData.new
     code.enemy ||= Code::ShipData.new
-    code.me.x = me.x
-    code.me.y = me.y
+    code.me.x = me.x.to_i
+    code.me.y = me.y.to_i
     code.me.energy = my_energy.level
     code.me.direction = Code::DIRECTION[me.current_animation + 1]
-    code.enemy.x = enemy.x
-    code.enemy.y = enemy.y
+    code.enemy.x = enemy.x.to_i
+    code.enemy.y = enemy.y.to_i
     code.enemy.energy = other_energy.level
     code.enemy.direction = Code::DIRECTION[enemy.current_animation + 1]
   end
   private :update_player_info
+  
+  def draw
+    @p1_energy.draw_on @screen, 20, 0
+    @p2_energy.draw_on @screen, WIDTH-130, 0
+    @p1.draw_on @screen
+    @p2.draw_on @screen
+  end
 end
