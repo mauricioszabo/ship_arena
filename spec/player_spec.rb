@@ -17,6 +17,12 @@ describe Player do
     player.direction_to(10, 0).should == 0
   end
 
+  it 'should not move if direction is not given' do
+    player.update
+    player.x.should == 10
+    player.y.should == 10
+  end
+
   it 'should calculate the turning animation' do
     player.turn_to(Player::UPPER_RIGHT).should == Player::UPPER
     player.turn_to(Player::LOWER_LEFT).should == Player::LEFT
@@ -41,11 +47,11 @@ describe Player do
       player.current_animation.should == 7
     end
 
-    it 'should not update the position if it\'s not enough distant' do
+    it 'should end the animation on final position' do
       player.goto 10, 9
       player.update
       player.x.should == 10
-      player.y.should == 10
+      player.y.should == 9
     end
 
     it 'should update the current position, but not walk more than 5 steps' do

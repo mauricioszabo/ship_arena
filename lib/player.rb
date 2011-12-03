@@ -23,6 +23,7 @@ class Player
     @animations = (1..8).collect { |number| Sprite.new "#{file}-#{number}" }
     @current_animation = 0
     @x, @y = x, y
+    @destination_x, @destination_y = x, y
     @turn_time = 0
     @collision_box = Square.new
   end
@@ -39,7 +40,11 @@ class Player
     distance_x = @destination_x.to_i - @x
     distance_y = @destination_y.to_i - @y
     total_distance = (distance_x.abs + distance_y.abs).to_f
-    return if total_distance <= STEP_SIZE
+    if total_distance <= STEP_SIZE
+      @x = @destination_x
+      @y = @destination_y
+      return
+    end
 
     new_animation = direction_to(@destination_x, @destination_y)
     if new_animation == @current_animation
