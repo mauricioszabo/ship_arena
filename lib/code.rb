@@ -2,12 +2,9 @@ Object.send :remove_const, :ObjectSpace
 class Code
   ShipData = Struct.new(:x, :y, :energy, :direction)
   
-  me = enemy = nil
+#  me = enemy = nil
 
-  define_method(:me=) { |o| me = o }
-  define_method(:enemy=) { |o| enemy = o }
-  define_method(:me) { me }
-  define_method(:enemy) { enemy }
+  attr_accessor :me, :enemy
 
   DIRECTION = {
     Player::UPPER => :upper,

@@ -41,6 +41,7 @@ describe Code do
   end
 
   context "on positioning" do
+    before { scene.send :update_codes }
     it 'should show where are the ships' do
       run {
         me.x.should == 20
@@ -115,7 +116,9 @@ describe Code do
   end
 
   def run(&block)
-    this_code(&block).run
+    code = this_code &block
+    scene.send :update_codes
+    code.run
   end
 
   def this_code &block
