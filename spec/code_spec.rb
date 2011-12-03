@@ -102,6 +102,16 @@ describe Code do
         run { scene }
       }.to raise_error(NameError)
     end
+
+    it 'should be able to run multiple "codes"' do
+      procedure = mock("Code")
+      procedure.should_receive(:foo).once
+      procedure.should_receive(:bar).once
+      code1 = this_code { procedure.foo }
+      code2 = this_code { procedure.bar }
+      code1.run
+      code2.run
+    end
   end
 
   def run(&block)

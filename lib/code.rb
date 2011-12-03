@@ -21,12 +21,12 @@ class Code
   }
 
   class << self
-    block = nil
-    define_method(:each_frame) { |&b| block = b }
+    define_method(:each_frame) { |&b| @block = b }
 
     define_method :register_to do |scene, player|
       code = new
       define_methods(scene, player)
+      block = remove_instance_variable :@block
       define_method(:run) { instance_exec &block }
       eigen = class << code.class; self; end
       eigen.send :undef_method, :register_to
