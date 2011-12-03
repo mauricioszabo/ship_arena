@@ -7,10 +7,23 @@ require_relative "code"
 class ArSDL
   PAUSE = 20
 
-  def initialize
-    back = Sprite.new :background
+  def initialize(code1, code2)
     @scene = Scene.new create_screen
+    require File.expand_path(code1)
+    require File.expand_path(code2)
+    @scene.register_to class_for(code1), :p1
+    @scene.register_to class_for(code2), :p2
+  end
 
+  def class_for(string)
+    const_name = string.gsub(/(^|_)(.)/) { |a,b| a.gsub("_","").upcase }
+    const_name.gsub! /\.rb$/, ''
+    eval const_name
+  end
+  private :class_for
+
+  def run
+    back = Sprite.new :background
     while calculate_events
       back.draw_on(@screen, 0, 0)
       @scene.update
@@ -52,4 +65,8 @@ class ArSDL
   private :pause_and
 end
 
-ArSDL.new if __FILE__ == $0
+if __FILE__ == $0
+  code1, code2 = ARGV[0..1]
+  sdl = ArSDL.new code1, code2
+  sdl.run
+end
