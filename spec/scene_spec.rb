@@ -23,11 +23,14 @@ describe Scene do
   end
 
   it 'should update the code' do
-    code = mock("Code")
-    code.stub!(:register_to).and_return(code_instance = mock("Code Instance").as_null_object)
-    code_instance.should_receive(:run).twice
-    scene.register_to code, :p1
-    scene.register_to code, :p2
+    code1 = mock("Code")
+    code1.stub!(:register_to).and_return(code_instance1 = mock("Code Instance").as_null_object)
+    code2 = mock("Code")
+    code2.stub!(:register_to).and_return(code_instance2 = mock("Code Instance").as_null_object)
+    code_instance1.should_receive(:run)
+    code_instance2.should_receive(:run)
+    scene.register_to code1, :p1
+    scene.register_to code2, :p2
     scene.update
   end
 end

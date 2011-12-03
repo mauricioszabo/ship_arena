@@ -36,8 +36,6 @@ class Scene
   end
 
   def update_codes
-    #[@code1, @code2].compact.each do |code|
-    #end
     update_player_info @code1, @p1, @p2, @p1_energy, @p2_energy if @code1
     update_player_info @code2, @p2, @p1, @p2_energy, @p1_energy if @code2
   end
