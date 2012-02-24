@@ -1,6 +1,6 @@
 require_relative "square"
 
-class Player
+class Animable
   STEP_SIZE = 5
   TURN_DELAY = 3
   SIZE = 60
