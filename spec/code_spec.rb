@@ -60,7 +60,7 @@ describe Code do
 
     it 'should show energy for both ships' do
       run {
-        me.energy.should == 100
+        me.energy.should == 90
         enemy.energy.should == 100
       }
     end
@@ -128,6 +128,7 @@ describe Code do
     player.stub!(:x).and_return(20)
     player.stub!(:y).and_return(300)
     player.stub!(:current_animation).and_return(0)
+    player.stub_chain(:energy, :level).and_return(90)
     scene.instance_variable_set :@p1, player
     scene.register_to code, :p1
     scene.instance_variable_get :@code1
