@@ -1,5 +1,6 @@
-require "rubygems"
-require "sdl"
+require 'bundler'
+Bundler.require(:default)
+
 require_relative "scene"
 require_relative "screen"
 require_relative "code"
