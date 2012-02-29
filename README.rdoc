@@ -2,7 +2,15 @@
 It's an asteroids-like ship game, to use as a base
 to "coding arena".
 
-== Dependencies
+== Dependencies ==
+Because of the way RubySDL gem is made, you MUST install these
+dependencies on you machine BEFORE running "bundle". The dependencies
+are:
+
 * SDL
 * SDL-TTF
 * SDL-Image
+
+On Ubuntu you can install they with:
+
+  sudo apt-get install libsdl-ttf2.0-dev libsdl-image1.2-dev
