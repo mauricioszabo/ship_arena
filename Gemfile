@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem "rubysdl"
+gem "rubysdl", :require => 'sdl'
 
 group :test do
   gem "rspec"

@@ -1,6 +1,5 @@
 require 'bundler'
 Bundler.require(:default)
-require 'sdl'
 
 require_relative "scene"
 require_relative "screen"
