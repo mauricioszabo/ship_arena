@@ -1,5 +1,8 @@
+# Ship Arena
 It's an asteroids-like ship game, to use as a base
 to "coding arena".
 
-=== Dependencies
-* Dev SDL Library (libsdl-ttf2.0-dev - Debian/Ubuntu)
+## Dependencies
+* SDL
+* SDL-TTF
+* SDL-Image
