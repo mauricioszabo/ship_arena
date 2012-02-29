@@ -1,4 +1,6 @@
-require 'simplecov'
+require 'bundler'
+Bundler.require(:default, :test)
+
 SimpleCov.start do
   add_filter "spec"
 end
