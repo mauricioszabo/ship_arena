@@ -1,8 +1,8 @@
-# Ship Arena
+= Ship Arena
 It's an asteroids-like ship game, to use as a base
 to "coding arena".
 
-## Dependencies
+== Dependencies
 * SDL
 * SDL-TTF
 * SDL-Image
