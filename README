@@ -1,5 +1,5 @@
 It's an asteroids-like ship game, to use as a base
 to "coding arena".
 
-=== Dependecies
+=== Dependencies
 * Dev SDL Library (libsdl-ttf2.0-dev - Debian/Ubuntu)
