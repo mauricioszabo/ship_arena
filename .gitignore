@@ -2,3 +2,4 @@
 *.log
 images2
 coverage
+*~
